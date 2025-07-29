@@ -1,17 +1,17 @@
-from setuptools import setup
+from setuptools import setup, find_packages
 
 setup(
     name='DiscordPyAuxiliaryLib',
-    version='1.0.0',
-    packages=['DiscordPyAuxiliaryLib'],
+    version='0.0.1',
+    packages=find_packages(),
     install_requires=[
         'discord.py>=1.7.3',
         # Add other dependencies here
     ],
     author='hashimotok',
     author_email='contact@hashimotok.dev',
-    url='https://github.com/Monster2408/DiscordPyAuxiliaryLib',
-    download_url='https://github.com/Monster2408/DiscordPyAuxiliaryLib',
+    url='https://github.com/hashimotok-ecsv/DiscordPyAuxiliaryLib',
+    download_url='https://github.com/hashimotok-ecsv/DiscordPyAuxiliaryLib',
     python_requires=">=3.10.6",
     description='A library to assist with Discord.py development',
     long_description=open('README.md').read(),
@@ -30,18 +30,14 @@ setup(
     zip_safe=False,
     entry_points={
         'console_scripts': [
-            'discord-py-auxiliary-lib=DiscordPyAuxiliaryLib.__main__:main',
+            'discord-py-auxiliary-lib=discord_py_auxiliary_lib.__main__:main',
         ],
     },
     project_urls={
         'Documentation': 'https://discord-py-auxiliary-lib.readthedocs.io/',
-        'Source': 'https://github.com/Monster2408/DiscordPyAuxiliaryLib',
-        'Tracker': 'https://github.com/Monster2408/DiscordPyAuxiliaryLib/issues',
+        'Source': 'https://github.com/hashimotok-ecsv/DiscordPyAuxiliaryLib',
+        'Tracker': 'https://github.com/hashimotok-ecsv/DiscordPyAuxiliaryLib/issues',
     },
     license='MIT',
     license_files=('LICENSE',),
-    package_data={
-        'DiscordPyAuxiliaryLib': ['data/*.json', 'data/*.yaml'],
-    },
-    scripts=['scripts/discord_py_auxiliary_script.py'],
 )
