@@ -2,10 +2,10 @@ from setuptools import setup, find_packages
 
 setup(
     name='DiscordPyAuxiliaryLib',
-    version='0.0.1',
+    version='1.0.1',
     packages=find_packages(),
     install_requires=[
-        'discord.py>=1.7.3',
+        'discord.py>=2.5.2',
         # Add other dependencies here
     ],
     author='hashimotok',
