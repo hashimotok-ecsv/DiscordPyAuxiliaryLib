@@ -48,7 +48,7 @@ setup(
     download_url='https://github.com/hashimotok-ecsv/discord_py_auxiliary_lib',
     python_requires=">=3.10.6",
     description='A library to assist with Discord.py development',
-    long_description=open('README.md').read(),
+    long_description=open('README.md', encoding='utf-8').read(),
     long_description_content_type='text/markdown',
     classifiers=[
         'Development Status :: 5 - Production/Stable',
