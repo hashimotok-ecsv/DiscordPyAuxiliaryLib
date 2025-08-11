@@ -174,4 +174,5 @@ async def handle_role_interaction(inter: discord.Interaction):
     except Exception as e:
         print(f"Error in handle_role_interaction: {e}")
         traceback.print_exc()
-        await inter.response.send_message("エラーが発生しました。", ephemeral=True)
+        print("ハンドラーが見つかりません。")
+        #await inter.response.send_message("ハンドラーが見つかりません。", ephemeral=True)

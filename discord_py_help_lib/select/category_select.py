@@ -135,4 +135,5 @@ async def handle_category_interaction(inter: discord.Interaction):
     if handler:
         await handler.call(inter)
     else:
-        await inter.response.send_message("ハンドラーが見つかりません。", ephemeral=True)
+        print("ハンドラーが見つかりません。")
+        #await inter.response.send_message("ハンドラーが見つかりません。", ephemeral=True)
