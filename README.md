@@ -1,14 +1,14 @@
-# Auxiliary for discord.py Library
+# help for discord.py Library
 
-![PyPI version](https://img.shields.io/pypi/v/discord-py-auxiliary-lib.svg)
-![Python version](https://img.shields.io/pypi/pyversions/discord-py-auxiliary-lib.svg)
-![License](https://img.shields.io/pypi/l/discord-py-auxiliary-lib.svg)
+![PyPI version](https://img.shields.io/pypi/v/discord-py-help-lib.svg)
+![Python version](https://img.shields.io/pypi/pyversions/discord-py-help-lib.svg)
+![License](https://img.shields.io/pypi/l/discord-py-help-lib.svg)
 
 ---
 
 ## 📦 概要
 
-`discord-py-auxiliary-lib` は、discord.pyで役職パネルを簡単に実装するための Python ライブラリです。
+`discord-py-help-lib` は、discord.pyで役職パネルを簡単に実装するための Python ライブラリです。
 
 主な機能は以下のとおりです：
 
@@ -26,11 +26,11 @@
 
 ### PyPIからインストール：
 ```bash
-pip install discord-py-auxiliary-lib
+pip install discord-py-help-lib
 ```
 ### githubからインストール：
 ```bash
-pip install git+https://github.com/hashimotok-ecsv/discord_py_auxiliary_lib.git
+pip install git+https://github.com/hashimotok-ecsv/discord_py_help_lib.git
 ```
 ## 使い方
 ```python
