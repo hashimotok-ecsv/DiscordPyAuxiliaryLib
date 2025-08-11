@@ -170,7 +170,8 @@ async def handle_role_interaction(inter: discord.Interaction):
         if handler:
             await handler.call(inter)
         else:
-            await inter.response.send_message("ハンドラーが見つかりません。", ephemeral=True)
+            print("ハンドラーが見つかりません。")
+            #await inter.response.send_message("ハンドラーが見つかりません。", ephemeral=True)
     except Exception as e:
         print(f"Error in handle_role_interaction: {e}")
         traceback.print_exc()
