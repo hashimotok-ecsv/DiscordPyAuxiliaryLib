@@ -3,7 +3,7 @@ import re
 
 def derive_version() -> str:
     version = ''
-    with open('discord_py_auxiliary_lib/__init__.py', encoding='utf-8') as f:
+    with open('discord_py_help_lib/__init__.py', encoding='utf-8') as f:
         version = re.search(r'^__version__\s*=\s*[\'"]([^\'"]*)[\'"]', f.read(), re.MULTILINE).group(1)
 
     if not version:
@@ -27,11 +27,11 @@ def derive_version() -> str:
 
     return version
 
-NAME='discord-py-auxiliary-lib'
+NAME='discord-py-help-lib'
 
 PACKAGES = [
-    'discord_py_auxiliary_lib',
-    'discord_py_auxiliary_lib.select'
+    'discord_py_help_lib',
+    'discord_py_help_lib.select'
 ]
 
 setup(
@@ -59,12 +59,12 @@ setup(
         'Programming Language :: Python :: 3.12',
         'Operating System :: OS Independent',
     ],
-    keywords='discord.py auxiliary library',
+    keywords='discord.py help library',
     include_package_data=True,
     zip_safe=False,
     entry_points={
         'console_scripts': [
-            'discord-py-auxiliary-lib=discord_py_auxiliary_lib.__main__:main',
+            'discord-py-help-lib=discord_py_help_lib.__main__:main',
         ],
     },
     project_urls={
