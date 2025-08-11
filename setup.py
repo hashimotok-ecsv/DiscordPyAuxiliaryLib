@@ -3,7 +3,7 @@ import re
 
 def derive_version() -> str:
     version = ''
-    with open('discord_py_auxiliary_lib/__init__.py') as f:
+    with open('discord_py_auxiliary_lib/__init__.py', encoding='utf-8') as f:
         version = re.search(r'^__version__\s*=\s*[\'"]([^\'"]*)[\'"]', f.read(), re.MULTILINE).group(1)
 
     if not version:
