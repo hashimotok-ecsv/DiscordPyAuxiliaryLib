@@ -27,7 +27,7 @@ def derive_version() -> str:
 
     return version
 
-NAME = 'DiscordPyAuxiliaryLib'
+NAME = 'discord-py-auxiliary-lib'
 
 PACKAGES = [
     'discord_py_auxiliary_lib',
@@ -44,8 +44,8 @@ setup(
     ],
     author='hashimotok',
     author_email='contact@hashimotok.dev',
-    url='https://github.com/hashimotok-ecsv/DiscordPyAuxiliaryLib',
-    download_url='https://github.com/hashimotok-ecsv/DiscordPyAuxiliaryLib',
+    url='https://github.com/hashimotok-ecsv/discord_py_auxiliary_lib',
+    download_url='https://github.com/hashimotok-ecsv/discord_py_auxiliary_lib',
     python_requires=">=3.10.6",
     description='A library to assist with Discord.py development',
     long_description=open('README.md').read(),
@@ -69,8 +69,8 @@ setup(
     },
     project_urls={
         'Documentation': 'https://discord-py-auxiliary-lib.readthedocs.io/',
-        'Source': 'https://github.com/hashimotok-ecsv/DiscordPyAuxiliaryLib',
-        'Tracker': 'https://github.com/hashimotok-ecsv/DiscordPyAuxiliaryLib/issues',
+        'Source': 'https://github.com/hashimotok-ecsv/discord_py_auxiliary_lib',
+        'Tracker': 'https://github.com/hashimotok-ecsv/discord_py_auxiliary_lib/issues',
     },
     license='MIT',
     license_files=('LICENSE',),
