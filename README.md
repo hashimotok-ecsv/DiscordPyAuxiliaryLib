@@ -36,8 +36,8 @@ pip install git+https://github.com/hashimotok-ecsv/discord_py_help_lib.git
 ```python
 # 後日更新
 ```
-#### 管理者用
-##### 更新方法
+## 管理者用
+### 更新方法
 ```bash
 py setup.py sdist
 py setup.py bdist_wheel
