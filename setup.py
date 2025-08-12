@@ -72,5 +72,5 @@ setup(
         'Tracker': f'https://github.com/hashimotok-ecsv/discord_py_help_lib/issues',
     },
     license='MIT',
-    license_files=('LICENSE',),
+    license_file='LICENSE',
 )
