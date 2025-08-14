@@ -134,17 +134,17 @@ class TCSelectHandler:
                 if inter.data.get("component_type") == 3:  # Select Menu
                     selected_ids = inter.data["values"]
                     selected_vcs = []
-                    for vc_id in selected_ids:
-                        vc = inter.guild.get_channel(int(vc_id))
-                        if vc and isinstance(vc, discord.VoiceChannel):
-                            selected_vcs.append(vc)
+                    for tc_id in selected_ids:
+                        tc = inter.guild.get_channel(int(tc_id))
+                        if tc and isinstance(tc, discord.TextChannel):
+                            selected_vcs.append(tc)
                     
                     if self.on_select:
                         await self.on_select(inter, selected_vcs)
                     else:
-                        vc_names = [vc.name for vc in selected_vcs]
+                        tc_names = [tc.name for tc in selected_vcs]
                         await inter.response.edit_message(
-                            content=f"選択されたボイスチャンネル: {', '.join(vc_names)}", 
+                            content=f"選択されたボイスチャンネル: {', '.join(tc_names)}", 
                             view=None
                         )
                         
