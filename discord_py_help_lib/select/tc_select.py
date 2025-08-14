@@ -85,7 +85,7 @@ def get_tc_select(guild: discord.Guild, select_ui_id: str, placeholder: str, pag
         traceback.print_exc()
         return None
 
-class VCSelectHandler:
+class TCSelectHandler:
     def __init__(self, 
                  bot: commands.Bot, 
                  custom_id: str,
@@ -152,13 +152,13 @@ class VCSelectHandler:
             traceback.print_exc()
 
 # グローバルなハンドラー管理辞書
-_tc_handlers: dict[str, VCSelectHandler] = {}
+_tc_handlers: dict[str, TCSelectHandler] = {}
 
-def register_tc_handler(handler: VCSelectHandler):
+def register_tc_handler(handler: TCSelectHandler):
     """ハンドラーを登録"""
     _tc_handlers[handler.get_custom_id()] = handler
 
-def get_tc_handler(custom_id: str) -> Optional[VCSelectHandler]:
+def get_tc_handler(custom_id: str) -> Optional[TCSelectHandler]:
     """登録されたハンドラーを取得"""
     for handler_id, handler in _tc_handlers.items():
         if custom_id.startswith(handler_id):
