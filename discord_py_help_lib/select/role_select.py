@@ -3,9 +3,11 @@ import traceback
 from discord.ext import commands
 from typing import Callable, Optional, Awaitable
 
-def select_role(guild: discord.Guild, select_ui_id: str, placeholder: str, page: int = 1, multiselect: bool = False) -> dict:
+def select_role(guild: discord.Guild, select_ui_id: str, placeholder: str, page: int = 1, multiselect: bool = False, roles: list[discord.Role] = None) -> dict:
     # @everyoneロールを除外してロール一覧を取得
     role_list = [role for role in guild.roles if role.name != "@everyone"]
+    if roles:
+        role_list = roles
     # 位置順でソート（上位のロールが先頭）
     role_list.sort(key=lambda role: role.position, reverse=True)
     
@@ -42,9 +44,9 @@ def select_role(guild: discord.Guild, select_ui_id: str, placeholder: str, page:
     select_ui = discord.ui.Select(custom_id=select_ui_id + "_" + str(page), placeholder=placeholder, options=options, max_values=count)
     return {"select_ui": select_ui, "page": page, "last_page": last_page}
 
-def get_role_select(guild: discord.Guild, select_ui_id: str, placeholder: str, page: int = 1, multiselect: bool = False) -> discord.ui.View:
+def get_role_select(guild: discord.Guild, select_ui_id: str, placeholder: str, page: int = 1, multiselect: bool = False, roles: list[discord.Role] = None) -> discord.ui.View:
     try:
-        data = select_role(guild, select_ui_id, placeholder, page, multiselect)
+        data = select_role(guild, select_ui_id, placeholder, page, multiselect, roles)
         view: discord.ui.View = discord.ui.View()
         select_role_ui: discord.ui.Select = data["select_ui"]
         view.add_item(select_role_ui)
@@ -87,7 +89,8 @@ class RoleSelectHandler:
         custom_id: str,
         placeholder: str = "ロールを選択してください。",
         multiselect: bool = False,
-        on_select: Optional[Callable[[discord.Interaction, list[discord.Role]], Awaitable[None]]] = None
+        on_select: Optional[Callable[[discord.Interaction, list[discord.Role]], Awaitable[None]]] = None,
+        roles: list[discord.Role] = None
     ):
         """
         Initialize the RoleSelectHandler.
@@ -104,12 +107,13 @@ class RoleSelectHandler:
         self.placeholder = placeholder
         self.multiselect = multiselect
         self.on_select = on_select
+        self.roles = roles
     
     def get_custom_id(self) -> str:
         return self.custom_id
     
     def get_view(self, guild: discord.Guild, page: int = 1) -> discord.ui.View:
-        return get_role_select(guild, self.custom_id, self.placeholder, page, self.multiselect)
+        return get_role_select(guild, self.custom_id, self.placeholder, page, self.multiselect, self.roles)
 
     async def call(self, inter: discord.Interaction):
         try:

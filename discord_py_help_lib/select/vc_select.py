@@ -3,9 +3,11 @@ import traceback
 from discord.ext import commands
 from typing import Callable, Optional, Awaitable
 
-def select_vc(guild: discord.Guild, select_ui_id: str, placeholder: str, page: int = 1, multiselect: bool = False) -> dict:
+def select_vc(guild: discord.Guild, select_ui_id: str, placeholder: str, page: int = 1, multiselect: bool = False, voice_channels: list[discord.VoiceChannel] = None) -> dict:
     # ボイスチャンネルの一覧を取得
     vc_list = [channel for channel in guild.channels if isinstance(channel, discord.VoiceChannel)]
+    if voice_channels:
+        vc_list = voice_channels
     # カテゴリー順、位置順でソート
     vc_list.sort(key=lambda vc: (vc.category.name if vc.category else "", vc.position))
     
@@ -46,9 +48,9 @@ def select_vc(guild: discord.Guild, select_ui_id: str, placeholder: str, page: i
     select_ui = discord.ui.Select(custom_id=select_ui_id + "_" + str(page), placeholder=placeholder, options=options, max_values=count)
     return {"select_ui": select_ui, "page": page, "last_page": last_page}
 
-def get_vc_select(guild: discord.Guild, select_ui_id: str, placeholder: str, page: int = 1, multiselect: bool = False) -> discord.ui.View:
+def get_vc_select(guild: discord.Guild, select_ui_id: str, placeholder: str, page: int = 1, multiselect: bool = False, voice_channels: list[discord.VoiceChannel] = None) -> discord.ui.View:
     try:
-        data = select_vc(guild, select_ui_id, placeholder, page, multiselect)
+        data = select_vc(guild, select_ui_id, placeholder, page, multiselect, voice_channels)
         view: discord.ui.View = discord.ui.View()
         select_vc_ui: discord.ui.Select = data["select_ui"]
         view.add_item(select_vc_ui)
@@ -87,11 +89,13 @@ def get_vc_select(guild: discord.Guild, select_ui_id: str, placeholder: str, pag
 
 class VCSelectHandler:
     def __init__(self, 
-                 bot: commands.Bot, 
-                 custom_id: str,
-                 placeholder: str = "ボイスチャンネルを選択してください。",
-                 multiselect: bool = False,
-                 on_select: Optional[Callable[[discord.Interaction, list[discord.VoiceChannel]], Awaitable[None]]] = None):
+            bot: commands.Bot, 
+            custom_id: str,
+            placeholder: str = "ボイスチャンネルを選択してください。",
+            multiselect: bool = False,
+            on_select: Optional[Callable[[discord.Interaction, list[discord.VoiceChannel]], Awaitable[None]]] = None,
+            voice_channels: list[discord.VoiceChannel] = None
+        ):
         """
         Initialize the VCSelectHandler.
         
@@ -107,12 +111,13 @@ class VCSelectHandler:
         self.placeholder = placeholder
         self.multiselect = multiselect
         self.on_select = on_select
+        self.voice_channels = voice_channels
     
     def get_custom_id(self) -> str:
         return self.custom_id
     
     def get_view(self, guild: discord.Guild, page: int = 1) -> discord.ui.View:
-        return get_vc_select(guild, self.custom_id, self.placeholder, page, self.multiselect)
+        return get_vc_select(guild, self.custom_id, self.placeholder, page, self.multiselect, self.voice_channels)
 
     async def call(self, inter: discord.Interaction):
         try:

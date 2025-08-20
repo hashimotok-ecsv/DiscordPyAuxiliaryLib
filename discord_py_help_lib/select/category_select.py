@@ -3,8 +3,10 @@ import traceback
 from discord.ext import commands
 from typing import Callable, Optional, Awaitable
 
-def select_category(guild: discord.Guild, select_ui_id: str, placeholder: str, page: int = 1, multiselect: bool = False) -> dict:
+def select_category(guild: discord.Guild, select_ui_id: str, placeholder: str, page: int = 1, multiselect: bool = False, categories: list[discord.CategoryChannel] = None) -> dict:
     category_list = guild.categories
+    if categories:
+        category_list = categories
     total_categories = len(category_list)
     
     # 1ページあたりの項目数
@@ -29,9 +31,9 @@ def select_category(guild: discord.Guild, select_ui_id: str, placeholder: str, p
     select_ui = discord.ui.Select(custom_id=select_ui_id + "_" + str(page), placeholder=placeholder, options=options, max_values=count)
     return {"select_ui": select_ui, "page": page, "last_page": last_page}
 
-def get_category_select(guild: discord.Guild, select_ui_id: str, placeholder: str, page: int = 1, multiselect: bool = False) -> discord.ui.View:
+def get_category_select(guild: discord.Guild, select_ui_id: str, placeholder: str, page: int = 1, multiselect: bool = False, categories: list[discord.CategoryChannel] = None) -> discord.ui.View:
     try:
-        data = select_category(guild, select_ui_id, placeholder, page, multiselect)
+        data = select_category(guild, select_ui_id, placeholder, page, multiselect, categories)
         view: discord.ui.View = discord.ui.View()
         select_category_ui: discord.ui.Select = data["select_ui"]
         view.add_item(select_category_ui)
@@ -53,7 +55,8 @@ class CategorySelectHandler:
             custom_id: str,
             placeholder: str = "カテゴリーを選択してください。",
             multiselect: bool = False,
-            on_select: Optional[Callable[[discord.Interaction, list[discord.CategoryChannel]], Awaitable[None]]] = None
+            on_select: Optional[Callable[[discord.Interaction, list[discord.CategoryChannel]], Awaitable[None]]] = None,
+            categories: list[discord.CategoryChannel] = None
         ):
         """
         Initialize the CategorySelectHandler.
@@ -70,12 +73,13 @@ class CategorySelectHandler:
         self.placeholder = placeholder
         self.multiselect = multiselect
         self.on_select = on_select
+        self.categories = categories
     
     def get_custom_id(self) -> str:
         return self.custom_id
     
     def get_view(self, guild: discord.Guild, page: int = 1) -> discord.ui.View:
-        return get_category_select(guild, self.custom_id, self.placeholder, page, self.multiselect)
+        return get_category_select(guild, self.custom_id, self.placeholder, page, self.multiselect, self.categories)
 
     async def call(self, inter: discord.Interaction):
         try:
